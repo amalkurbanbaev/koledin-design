@@ -7,8 +7,8 @@
         "dev": "next dev",
         "live all": "cd .. && yarn dev",
         "lint-staged": "next lint",
-        "build": "rm -rf .next && next build",
-        "start": "next start",
+        "build": "rm -rf .next && NODE_ENV=production next build",
+        "start": "NODE_ENV=production next start",
         "lint": "next lint",
         "tsc": "tsc --noEmit -p .",
         "prepare": "cd .. && husky install frontend/.husky"
