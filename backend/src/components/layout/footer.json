@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_layout_footers",
+  "info": {
+    "displayName": "footer",
+    "icon": "layout",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "copyrights": {
+      "type": "component",
+      "repeatable": false,
+      "component": "common.copyrights"
+    },
+    "footerLogo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}
