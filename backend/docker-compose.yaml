@@ -2,7 +2,7 @@ version: "3"
 services:
   strapi:
     container_name: strapi
-    image: registry.imperium.org.ru/koledin/strapi:latest
+    image: docker.io/koledin0ci/strapi:latest #registry.imperium.org.ru/koledin/strapi:latest
     restart: unless-stopped
     env_file: .env
     extra_hosts:
@@ -21,7 +21,7 @@ services:
       - strapi
   nextjs:
     container_name: nextjs
-    image: registry.imperium.org.ru/koledin/nextjs:latest
+    image: docker.io/koledin0ci/nextjs:latest #registry.imperium.org.ru/koledin/nextjs:latest
     restart: unless-stopped
     ports:
      - "3000:3000"
