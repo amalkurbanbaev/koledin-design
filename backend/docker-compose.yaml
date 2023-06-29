@@ -1,0 +1,31 @@
+version: "3"
+services:
+  strapi:
+    container_name: strapi
+    image: registry.imperium.org.ru/koledin/strapi:latest
+    restart: unless-stopped
+    env_file: .env
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+    volumes:
+      - ./config:/opt/app/config
+      - ./src:/opt/app/src
+      - ./package.json:/opt/package.json
+      - ./yarn.lock:/opt/yarn.lock
+      - ./.env:/opt/app/.env
+      - ./public/uploads:/opt/app/public/uploads
+    ports:
+      - "1337:1337"
+    networks:
+      - strapi
+  nextjs:
+    container_name: nextjs
+    image: registry.imperium.org.ru/koledin/nextjs:latest
+    restart: unless-stopped
+    env_file: .env
+
+networks:
+  strapi:
+    name: Strapi
+    driver: bridge
