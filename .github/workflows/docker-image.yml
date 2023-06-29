@@ -1,8 +1,6 @@
 name: Docker Image CI
 
 on:
-  push:
-    branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
 
@@ -24,3 +22,11 @@ jobs:
       run: cd backend; docker build . --file Dockerfile --tag docker.io/koledin0ci/strapi:latest && docker push docker.io/koledin0ci/strapi:latest
     - name: Build the Docker image
       run: cd frontend; docker build . --file Dockerfile --tag docker.io/koledin0ci/nextjs:latest && docker push docker.io/koledin0ci/nextjs:latest
+    - name: Trigger remote
+      uses: appleboy/ssh-action@v0.1.10
+      with:
+        host: koledin.com
+        username: root
+        password: nauka2021
+        port: 22
+        script: cd /root/koledin-design/backend; docker-compose down && docker-compose pull && docker-compose up -d
