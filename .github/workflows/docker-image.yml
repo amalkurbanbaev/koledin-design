@@ -25,4 +25,4 @@ jobs:
         username: root
         password: nauka2021
         port: 22
-        script: cd /root/koledin-design/backend; docker-compose down && docker-compose pull && docker-compose up -d && docker rmi `docker images -q`
+        script: cd /root/koledin-design/backend; docker-compose down && docker-compose pull -q && docker-compose up -d && docker rmi `docker images -q`
