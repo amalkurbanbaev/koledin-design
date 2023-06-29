@@ -19,12 +19,14 @@ services:
       - "1337:1337"
     networks:
       - strapi
-#  nextjs:
-#    container_name: nextjs
-#    image: registry.imperium.org.ru/koledin/nextjs:latest
-#    restart: unless-stopped
-#    env_file: .env
-
+  nextjs:
+    container_name: nextjs
+    image: registry.imperium.org.ru/koledin/nextjs:latest
+    restart: unless-stopped
+    ports:
+     - "3000:3000"
+    networks:
+      - strapi
 networks:
   strapi:
     driver: bridge
