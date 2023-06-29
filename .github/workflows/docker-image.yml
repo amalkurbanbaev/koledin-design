@@ -1,0 +1,26 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Docker Login
+      uses: docker/login-action@v2.2.0
+      with:
+        username: koledin0ci # optional
+        # Password or personal access token used to log against the Docker registry
+        password: "dckr_pat_ulo0Ws-wNVtwHCOseLOmZ1gn3Es" # optional
+    - name: Build the Docker image
+      run: cd backend; docker build . --file Dockerfile --tag docker.io/koledin0ci/strapi:latest && docker push docker.io/koledin0ci/strapi:latest
+    - name: Build the Docker image
+      run: cd frontend; docker build . --file Dockerfile --tag docker.io/koledin0ci/nextjs:latest && docker push docker.io/koledin0ci/nextjs:latest
