@@ -8,7 +8,15 @@ const nextConfig = {
                 port: "443",
                 pathname: "/uploads/**",
             },
+            {
+                protocol: "http",
+                hostname: "admin.koledin.com",
+                port: "80",
+                pathname: "/uploads/**",
+            },
+
         ],
+        domains: ['admin.koledin.com'],
     },
     output: 'standalone',
 };
