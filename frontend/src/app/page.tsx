@@ -4,6 +4,8 @@ import ProjectList from "@/components/templates/ProjectList";
 import { IProject } from "@/types/generated";
 import { fetchAPI } from "@/utils/fetch-api";
 
+export const revalidate = 60; // revalidate this page every 60 seconds
+
 const getAllProjects = async (): Promise<{
     data: IProject[];
     meta: { pagination: { start: number; limit: number; total: number } };
