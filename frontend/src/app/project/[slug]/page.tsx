@@ -2,6 +2,7 @@ import { Metadata } from "next";
 
 import Project from "@/components/templates/Project";
 import { IProject } from "@/types/generated";
+import { getStrapiMedia } from "@/utils/api-helpers";
 import { fetchAPI } from "@/utils/fetch-api";
 
 async function getProjectBySlug(slug: string): Promise<{
@@ -50,13 +51,16 @@ export async function generateMetadata({
     const meta = await getMetaData(params.slug);
     const metadata = meta.data[0].attributes.meta;
 
-    // const sharedOgImage = getStrapiMedia(
-    //     metadata?.shareImage?.data?.attributes.url,
-    // );
+    const sharedOgImage = getStrapiMedia(
+        metadata?.shareImage?.data?.attributes.url,
+    );
 
     return {
         title: metadata?.metaTitle,
         description: metadata?.metaDescription,
+        openGraph: {
+            images: [sharedOgImage || ""],
+        },
     };
 }
 

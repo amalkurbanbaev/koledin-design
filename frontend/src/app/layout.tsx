@@ -67,9 +67,9 @@ export async function generateMetadata(): Promise<Metadata> {
         icons: {
             icon: [new URL(url || "", getStrapiURL())],
         },
-        // openGraph: {
-        //     images: [new URL(url || "", getStrapiURL())],
-        // },
+        openGraph: {
+            images: [new URL(url || "", getStrapiURL())],
+        },
     };
 }
 
