@@ -19,8 +19,8 @@ const jost = Jost({
 });
 
 const FALLBACK_SEO = {
-    title: "Strapi Starter Next Blog",
-    description: "Strapi Starter Next Blog",
+    title: "Koledin Design",
+    description: " ", // TO DO
 };
 
 async function getGlobal(): Promise<{
