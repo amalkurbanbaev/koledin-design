@@ -41,7 +41,7 @@ const Footer = (props: Partial<ILayoutFooter>) => {
                         )}
                     </div>
                 </div>
-                <div className="mt-10 flex w-full flex-col items-center justify-center gap-y-5">
+                <div className="flex w-full flex-col items-center justify-center gap-y-5 max-md:mt-10">
                     {logo ? (
                         <Image
                             src={logo}

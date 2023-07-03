@@ -14,11 +14,16 @@ const nextConfig = {
                 port: "80",
                 pathname: "/uploads/**",
             },
-
+            {
+                protocol: "http",
+                hostname: "127.0.0.1",
+                port: "1337",
+                pathname: "/uploads/**",
+            },
         ],
-        domains: ['admin.koledin.com'],
+        domains: ["admin.koledin.com"],
     },
-    output: 'standalone',
+    output: "standalone",
 };
 
 module.exports = nextConfig;
