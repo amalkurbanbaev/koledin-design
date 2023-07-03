@@ -25,7 +25,7 @@ const Header = (props: Partial<ILayoutHeader>) => {
                             additionalHeaderLogo?.data?.attributes
                                 .alternativeText || ""
                         }
-                        className="h-auto w-32 object-contain md:w-auto"
+                        className="h-auto w-32 object-contain md:w-96"
                         priority
                     />
                 ) : undefined}
