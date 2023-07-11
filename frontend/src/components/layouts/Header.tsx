@@ -2,6 +2,8 @@
 
 "use client";
 
+import { useEffect, useState } from "react";
+
 import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
@@ -21,9 +23,13 @@ const Header = (props: Partial<ILayoutHeader>) => {
 
     const { theme, setTheme } = useTheme();
 
-    const isDarkPreferTheme = window.matchMedia(
-        "(prefers-color-scheme: dark)",
-    ).matches;
+    const [isDarkPreferTheme, setIsDarkPreferTheme] = useState<boolean>();
+
+    useEffect(() => {
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            setIsDarkPreferTheme(true);
+        }
+    }, []);
 
     return (
         <header className="container-main my-10 flex w-full justify-between md:mb-[90px] md:mt-[113px]">
