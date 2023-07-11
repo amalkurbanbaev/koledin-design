@@ -2,6 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+.scrollbar-lg {
+    scrollbar-width: 9px;
+    scrollbar-color: #eaecf1 transparent;
+    &::-webkit-scrollbar {
+        width: 9px;
+        width: 9px;
+    }
+    &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: red;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: #d9dbdf;
+    }
+    &::-webkit-scrollbar-thumb:active {
+        background-color: #c8cac6;
+    }
+}
+
 @layer components {
     .container-main {
         @apply container mx-auto px-4;
@@ -13,20 +32,30 @@
             padding-right: max(1rem, env(safe-area-inset-right));
         }
     }
+
+    .scrollbar-themed {
+        @apply scrollbar-thumb-theme-black dark:scrollbar-thumb-theme-pink scrollbar-thin scroll-smooth;
+    }
+
+    .negative-bg {
+        background: linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.5) 0%,
+                rgba(0, 0, 0, 0.5) 100%
+            ),
+            lightgray 50% / cover no-repeat;
+    }
 }
 
 @layer base {
     html,
     body {
-        @apply scroll-smooth;
+        @apply scrollbar-themed;
         @apply flex h-screen flex-col;
     }
 
     body {
         @apply min-w-[320px];
-
-        @apply bg-theme-black;
-        @apply text-white;
     }
     #__next {
         @apply flex min-h-screen flex-col;

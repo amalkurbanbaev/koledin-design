@@ -1,7 +1,9 @@
+const twScrollbar = require("tailwind-scrollbar");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content: ["./src/**/*.{js,ts,jsx,tsx}"],
-
+    darkMode: "class",
     theme: {
         extend: {
             container: {
@@ -21,5 +23,5 @@ module.exports = {
             },
         },
     },
-    plugins: [],
+    plugins: [twScrollbar],
 };

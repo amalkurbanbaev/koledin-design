@@ -24,6 +24,14 @@ const Window = ({ children }: { children: ReactNode }) => {
         return () => clearTimeout(timeOut);
     };
 
+    useEffect(() => {
+        if (isOpen) {
+            document.body.classList.add("scrollbar-hidden");
+        } else {
+            document.body.classList.remove("scrollbar-hidden");
+        }
+    }, [isOpen]);
+
     return (
         <Transition appear show={isOpen} as={Fragment}>
             <Dialog as="div" className="relative z-10" onClose={handleClose}>
@@ -36,10 +44,10 @@ const Window = ({ children }: { children: ReactNode }) => {
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div className="fixed inset-0 bg-black/90 backdrop-blur-[5px]" />
+                    <div className="fixed inset-0 bg-white/40 backdrop-blur-[5px] dark:bg-black/90" />
                 </Transition.Child>
 
-                <div className="fixed inset-0 overflow-y-auto">
+                <div className="scrollbar-themed fixed inset-0 overflow-y-auto">
                     <div className="flex min-h-full items-center justify-center p-4 text-center">
                         <Transition.Child
                             as={Fragment}
@@ -50,7 +58,7 @@ const Window = ({ children }: { children: ReactNode }) => {
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                         >
-                            <Dialog.Panel className="relative w-full max-w-6xl rounded-2xl bg-transparent p-6 pt-20 text-left align-middle shadow-xl transition-all">
+                            <Dialog.Panel className="relative w-full max-w-6xl rounded-2xl bg-transparent p-6 pt-20 text-left align-middle transition-all dark:shadow-xl">
                                 <Image
                                     alt="Close project"
                                     src={AdditionalLogo}

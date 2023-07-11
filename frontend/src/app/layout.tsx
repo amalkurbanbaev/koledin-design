@@ -88,7 +88,9 @@ const RootLayout = async ({ children, params, modal }: RootLayoutProps) => {
 
     return (
         <html lang={params.lang}>
-            <body className={`${jost.className} flex flex-col`}>
+            <body
+                className={`${jost.className} flex flex-col bg-theme-pink text-black transition-colors duration-300 dark:bg-theme-black dark:text-white`}
+            >
                 <Header {...header} />
                 <main className="relative flex-1">{children}</main>
                 {modal}
