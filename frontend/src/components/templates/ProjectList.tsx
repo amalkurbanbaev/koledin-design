@@ -11,7 +11,7 @@ type Props = { projects: IProject[] };
 const ProjectList = (props: Props) => {
     const { projects } = props;
     return (
-        <div className="grid grid-cols-1 place-items-center gap-x-6 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 place-items-center gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
             {projects?.map((el) => (
                 <Link
                     key={el.id}

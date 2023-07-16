@@ -20,7 +20,7 @@ const Project = (project: IProject["attributes"]) => {
 
     return (
         <div className="max-w-6xl">
-            <h3 className="mb-20 text-2xl font-semibold max-md:max-w-md max-sm:max-w-sm md:text-4xl">
+            <h3 className="mb-10 w-4/5 text-2xl font-semibold lg:py-20 lg:text-4xl landscape:mb-5">
                 {title}
             </h3>
             {media?.data ? <MediaSlider media={media?.data} /> : undefined}
@@ -30,10 +30,10 @@ const Project = (project: IProject["attributes"]) => {
             <div className="mt-14 flex gap-x-8">
                 {categories?.data.map((cat) => (
                     <div
-                        className="flex items-center gap-x-2.5 text-[27px]"
+                        className="flex flex-wrap items-center gap-x-2.5 text-sm lg:text-[27px]"
                         key={cat.id}
                     >
-                        <div className="h-14 w-14 rounded-full border-2 border-white" />
+                        <div className="h-5 w-5 rounded-full border-2 border-white lg:h-14 lg:w-14" />
                         <span>{cat.attributes.name}</span>
                     </div>
                 ))}

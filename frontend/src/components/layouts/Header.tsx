@@ -1,5 +1,3 @@
-/* eslint-disable no-nested-ternary */
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -7,8 +5,8 @@ import { useEffect, useState } from "react";
 import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
+import { useTheme } from "next-themes";
 
-import { useTheme } from "@/hooks/useTheme";
 import { ILayoutHeader } from "@/types/generated";
 import { getStrapiMedia } from "@/utils/api-helpers";
 
@@ -21,66 +19,104 @@ const Header = (props: Partial<ILayoutHeader>) => {
         additionalHeaderLogo?.data?.attributes.url,
     );
 
-    const { theme, setTheme } = useTheme();
-
-    const [isDarkPreferTheme, setIsDarkPreferTheme] = useState<boolean>();
-
+    const { setTheme, resolvedTheme } = useTheme();
+    const [mounted, setMounted] = useState(false);
     useEffect(() => {
-        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-            setIsDarkPreferTheme(true);
-        }
+        setMounted(true);
     }, []);
 
     return (
-        <header className="container-main my-10 flex w-full justify-between md:mb-[90px] md:mt-[113px]">
+        <header className="container-main my-10 flex w-full justify-between md:mb-[90px] md:mt-[113px] landscape:my-10">
             <div className="flex-1" />
-            <Link href="/" className="relative flex-1">
-                {logoUrl ? (
-                    <Image
-                        src={logoUrl}
-                        width={380}
-                        height={117}
-                        alt={
-                            additionalHeaderLogo?.data?.attributes
-                                .alternativeText || ""
-                        }
-                        className="h-auto w-32 object-contain md:w-96"
-                        priority
-                    />
-                ) : undefined}
-                {additionalLogo ? (
-                    <Image
-                        src={additionalLogo}
-                        width={73}
-                        height={73}
-                        alt=""
-                        className="absolute -right-1/4 top-0 w-6 -translate-y-1/2 md:-right-1/3 md:w-16 md:-translate-x-1/2"
-                    />
-                ) : undefined}
-            </Link>
-            <div className="flex flex-1 items-start justify-end gap-x-3">
-                <button type="button" onClick={() => setTheme("dark")}>
-                    <DarkThemeIcon />
-                </button>
-                <div className="w-20">
-                    <div
-                        className={classNames(
-                            "h-5 w-5 rounded-full border-2 border-white transition-transform duration-300 ease-in-out",
-                            isDarkPreferTheme && theme === "system"
-                                ? "translate-x-0"
-                                : theme === "dark"
-                                ? "translate-x-0"
-                                : "translate-x-[58px]",
-                        )}
-                    />
+            <Link href="/" className="flex flex-1 justify-center">
+                <div className="relative">
+                    {logoUrl ? (
+                        <Image
+                            src={logoUrl}
+                            width={380}
+                            height={117}
+                            alt={
+                                additionalHeaderLogo?.data?.attributes
+                                    .alternativeText || ""
+                            }
+                            className="h-auto w-32 object-contain md:w-96"
+                            priority
+                        />
+                    ) : undefined}
+                    {additionalLogo ? (
+                        <Image
+                            src={additionalLogo}
+                            width={73}
+                            height={73}
+                            alt=""
+                            className="absolute left-[calc(100%+27px)] top-0 hidden h-auto -translate-y-1/2 md:block md:w-12 lg:w-[73px]"
+                        />
+                    ) : undefined}
                 </div>
-                <button
-                    type="button"
-                    className=""
-                    onClick={() => setTheme("light")}
-                >
-                    <LightThemeIcon />
-                </button>
+            </Link>
+
+            <div className="flex flex-1 items-start justify-end">
+                <div className="ml-auto hidden w-1/3 justify-between gap-x-2 lg:flex">
+                    {mounted ? (
+                        <>
+                            <button
+                                type="button"
+                                onClick={() => setTheme("dark")}
+                            >
+                                <DarkThemeIcon />
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    resolvedTheme === "dark"
+                                        ? setTheme("light")
+                                        : setTheme("dark")
+                                }
+                                className="relative flex h-5 flex-1"
+                            >
+                                <span
+                                    className={classNames(
+                                        "absolute h-5 w-5 rounded-full border-2 transition-all duration-500 ease-in-out",
+                                        resolvedTheme === "dark"
+                                            ? "left-0"
+                                            : "left-full -translate-x-full",
+                                    )}
+                                />
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setTheme("light")}
+                            >
+                                <LightThemeIcon />
+                            </button>
+                        </>
+                    ) : (
+                        <div className="h-5 w-36 animate-pulse rounded-full bg-black/10 dark:bg-white/20" />
+                    )}
+                </div>
+                {mounted ? (
+                    <div className="relative my-auto flex h-7 w-7 rounded-full border-2 lg:hidden">
+                        {resolvedTheme === "dark" ? (
+                            <button
+                                type="button"
+                                onClick={() => setTheme("light")}
+                                className="absolute left-1/2 top-1/2 h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full"
+                            >
+                                <LightThemeIcon size="sm" />
+                            </button>
+                        ) : (
+                            <button
+                                type="button"
+                                onClick={() => setTheme("dark")}
+                                className="absolute left-1/2 top-1/2 h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full"
+                            >
+                                <DarkThemeIcon size="sm" />
+                            </button>
+                        )}
+                    </div>
+                ) : (
+                    <div className="relative my-auto flex h-7 w-7 animate-spin-slow rounded-full border-2 border-dashed duration-1000 lg:hidden" />
+                )}
             </div>
         </header>
     );

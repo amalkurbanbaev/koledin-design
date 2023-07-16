@@ -6,6 +6,7 @@ import { Jost } from "next/font/google";
 
 import Footer from "@/components/layouts/Footer";
 import Header from "@/components/layouts/Header";
+import { RootProvider } from "@/components/providers";
 import { IGlobal } from "@/types/generated";
 import { getStrapiURL } from "@/utils/api-helpers";
 import { fetchAPI } from "@/utils/fetch-api";
@@ -87,14 +88,16 @@ const RootLayout = async ({ children, params, modal }: RootLayoutProps) => {
     const { header, footer } = global.data.attributes;
 
     return (
-        <html lang={params.lang}>
+        <html lang={params.lang} suppressHydrationWarning>
             <body
                 className={`${jost.className} flex flex-col bg-theme-pink text-black transition-colors duration-300 dark:bg-theme-black dark:text-white`}
             >
-                <Header {...header} />
-                <main className="relative flex-1">{children}</main>
-                {modal}
-                <Footer {...footer} />
+                <RootProvider>
+                    <Header {...header} />
+                    <main className="relative flex-1">{children}</main>
+                    {modal}
+                    <Footer {...footer} />{" "}
+                </RootProvider>
             </body>
         </html>
     );
