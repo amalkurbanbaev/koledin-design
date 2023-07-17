@@ -2,7 +2,7 @@ import { Metadata } from "next";
 
 import Project from "@/components/templates/Project";
 import { IProject } from "@/types/generated";
-import { getStrapiMedia } from "@/utils/api-helpers";
+import { getStrapiMedia, getStrapiURL } from "@/utils/api-helpers";
 import { fetchAPI } from "@/utils/fetch-api";
 
 async function getProjectBySlug(slug: string): Promise<{
@@ -23,7 +23,6 @@ async function getProjectBySlug(slug: string): Promise<{
     return response;
 }
 
-// TODO: ORDER BY DESC
 async function getMetaData(slug: string): Promise<{
     data: IProject[];
     meta: { pagination: null };
@@ -59,7 +58,18 @@ export async function generateMetadata({
         title: metadata?.metaTitle,
         description: metadata?.metaDescription,
         openGraph: {
-            images: [sharedOgImage || ""],
+            url: `${getStrapiURL()}propject/params.slug/`,
+            images: [
+                {
+                    url: sharedOgImage || "/shareImageFallback.jpg",
+                    width: metadata?.shareImage?.data?.attributes.width || 500,
+                    height:
+                        metadata?.shareImage?.data?.attributes.height || 500,
+                    alt:
+                        metadata?.shareImage?.data?.attributes
+                            .alternativeText || "",
+                },
+            ],
         },
     };
 }

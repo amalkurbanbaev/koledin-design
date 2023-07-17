@@ -19,9 +19,69 @@ const jost = Jost({
     weight: ["300", "400", "500", "600"],
 });
 
-const FALLBACK_SEO = {
+const FALLBACK_SEO: Metadata = {
+    metadataBase: new URL("https://koledin.com"),
     title: "Koledin Design",
-    description: " ", // TO DO
+    description:
+        "Делаем графический дизайн, сайты и развиваем чувство стиля / We make graphic design, websites and develop a sense of style",
+    icons: {
+        icon: [
+            { url: "/favicons/favicon.ico" },
+            new URL("/favicons/favicon.ico", "https://koledin.com"),
+        ],
+        apple: [
+            {
+                url: "/favicons/apple-touch-icon.png",
+                type: "image/png",
+                sizes: "180x180",
+            },
+        ],
+        other: [
+            {
+                rel: "icon",
+                type: "image/png",
+                url: "/favicons/favicon-32x32.png",
+                sizes: "32x32",
+            },
+            {
+                rel: "icon",
+                type: "image/png",
+                url: "/favicons/favicon-16x16.png",
+                sizes: "16x16",
+            },
+            {
+                rel: "manifest",
+                url: "/favicons/site.webmanifest",
+            },
+            {
+                rel: "mask-icon",
+                url: "/favicons/safari-pinned-tab.svg",
+            },
+        ],
+    },
+    applicationName: "Koledin Design",
+    manifest: "/favicons/site.webmanifest",
+    appleWebApp: {
+        capable: true,
+        title: "Koledin Design",
+        statusBarStyle: "black-translucent",
+    },
+    openGraph: {
+        title: "Koledin Design",
+        description:
+            "Делаем графический дизайн, сайты и развиваем чувство стиля / We make graphic design, websites and develop a sense of style",
+        url: "https://koledin.com",
+        siteName: "Koledin Design",
+        images: [
+            {
+                url: "/shareImageFallback.jpg",
+                width: 600,
+                height: 600,
+            },
+        ],
+        locale: "ru_RU",
+        type: "website",
+    },
 };
 
 async function getGlobal(): Promise<{
@@ -60,16 +120,68 @@ export async function generateMetadata(): Promise<Metadata> {
     if (!meta.data) return FALLBACK_SEO;
 
     const { metadata, favicon } = meta.data.attributes;
-    const { url } = favicon?.data?.attributes || {};
+    const { url: faviconUrl } = favicon?.data?.attributes || {};
 
     return {
+        metadataBase: new URL(getStrapiURL()),
         title: metadata?.metaTitle,
         description: metadata?.metaDescription,
         icons: {
-            icon: [new URL(url || "", getStrapiURL())],
+            icon: [{ url: faviconUrl || "" }],
+            apple: [
+                {
+                    url: "/favicons/apple-touch-icon.png",
+                    type: "image/png",
+                    sizes: "180x180",
+                },
+            ],
+            other: [
+                {
+                    rel: "icon",
+                    type: "image/png",
+                    url: "/favicons/favicon-32x32.png",
+                    sizes: "32x32",
+                },
+                {
+                    rel: "icon",
+                    type: "image/png",
+                    url: "/favicons/favicon-16x16.png",
+                    sizes: "16x16",
+                },
+                {
+                    rel: "manifest",
+                    url: "/favicons/site.webmanifest",
+                },
+                {
+                    rel: "mask-icon",
+                    url: "/favicons/safari-pinned-tab.svg",
+                },
+            ],
+        },
+        applicationName: "Koledin Design",
+        manifest: "/favicons/site.webmanifest",
+        appleWebApp: {
+            capable: true,
+            title: metadata?.metaTitle || "Koledin Design",
+            statusBarStyle: "black-translucent",
         },
         openGraph: {
-            images: [new URL(url || "", getStrapiURL())],
+            title: metadata?.metaTitle || "Koledin Design",
+            description: metadata?.metaDescription || "",
+            url: getStrapiURL(),
+            siteName: metadata?.metaTitle || "Koledin Design",
+            images: [
+                {
+                    url: metadata?.shareImage?.data?.attributes.url || "",
+                    width: metadata?.shareImage?.data?.attributes.width || "",
+                    height: metadata?.shareImage?.data?.attributes.height || "",
+                    alt:
+                        metadata?.shareImage?.data?.attributes
+                            .alternativeText || "",
+                },
+            ],
+            locale: "ru_RU",
+            type: "website",
         },
     };
 }
