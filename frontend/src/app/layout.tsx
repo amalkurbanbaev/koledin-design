@@ -130,7 +130,7 @@ export async function generateMetadata(): Promise<Metadata> {
     const { url: faviconUrl } = favicon?.data?.attributes || {};
 
     return {
-        metadataBase: new URL(getStrapiURL()),
+        metadataBase: new URL("https://koledin.com"),
         title: metadata?.metaTitle,
         description: metadata?.metaDescription,
         icons: {
@@ -182,7 +182,7 @@ export async function generateMetadata(): Promise<Metadata> {
         openGraph: {
             title: metadata?.metaTitle || "Koledin Design",
             description: metadata?.metaDescription || "",
-            url: getStrapiURL(),
+            url: "https://koledin.com",
             siteName: metadata?.metaTitle || "Koledin Design",
             images: [
                 {

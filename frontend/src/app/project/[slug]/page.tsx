@@ -1,8 +1,9 @@
 import { Metadata } from "next";
+import Link from "next/link";
 
 import Project from "@/components/templates/Project";
 import { IProject } from "@/types/generated";
-import { getStrapiMedia, getStrapiURL } from "@/utils/api-helpers";
+import { getStrapiMedia } from "@/utils/api-helpers";
 import { fetchAPI } from "@/utils/fetch-api";
 
 async function getProjectBySlug(slug: string): Promise<{
@@ -34,7 +35,7 @@ async function getMetaData(slug: string): Promise<{
             cover: { fields: ["url"] },
             categories: { fields: ["name"] },
             meta: { fields: ["*"] },
-            // media: { populate: ["*"] },
+            media: { populate: ["*"] },
         },
     };
     const options = {};
@@ -48,17 +49,18 @@ export async function generateMetadata({
     params: { slug: string };
 }): Promise<Metadata> {
     const meta = await getMetaData(params.slug);
-    const metadata = meta.data[0].attributes.meta;
+    const metadata = meta.data[0]?.attributes.meta;
 
     const sharedOgImage = getStrapiMedia(
         metadata?.shareImage?.data?.attributes.url,
     );
 
     return {
+        metadataBase: new URL("https://koledin.com"),
         title: metadata?.metaTitle,
         description: metadata?.metaDescription,
         openGraph: {
-            url: `${getStrapiURL()}propject/params.slug/`,
+            url: `/project/${params.slug}/`,
             images: [
                 {
                     url: sharedOgImage || "/shareImageFallback.jpg",
@@ -78,7 +80,21 @@ const ProjectPage = async ({ params }: { params: { slug: string } }) => {
     const { slug } = params;
     const projectData = await getProjectBySlug(slug);
 
-    if (projectData.data.length === 0) return <h2>no post found</h2>;
+    if (projectData.data.length === 0)
+        return (
+            <div className="container-main">
+                <h1 className=" mx-auto max-w-xs text-center text-3xl font-bold">
+                    Проект не найден.
+                    <br />
+                    <br />
+                    Вернитесь на{" "}
+                    <Link href="/" className="underline underline-offset-8">
+                        главную страницу
+                    </Link>{" "}
+                    и выберите из списка доступных
+                </h1>
+            </div>
+        );
 
     return (
         <div className="container-main">
