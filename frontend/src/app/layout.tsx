@@ -8,7 +8,6 @@ import Footer from "@/components/layouts/Footer";
 import Header from "@/components/layouts/Header";
 import { RootProvider } from "@/components/providers";
 import { IGlobal } from "@/types/generated";
-import { getStrapiURL } from "@/utils/api-helpers";
 import { fetchAPI } from "@/utils/fetch-api";
 
 import RootErrorBoundary from "./error";
