@@ -31,6 +31,13 @@ const FALLBACK_SEO: Metadata = {
         ],
         apple: [
             {
+                rel: "apple-touch-icon",
+                url: "/favicons/apple-touch-icon.png",
+                type: "image/png",
+                sizes: "180x180",
+            },
+            {
+                rel: "apple-touch-startup-image",
                 url: "/favicons/apple-touch-icon.png",
                 type: "image/png",
                 sizes: "180x180",
@@ -130,6 +137,13 @@ export async function generateMetadata(): Promise<Metadata> {
             icon: [{ url: faviconUrl || "" }],
             apple: [
                 {
+                    rel: "apple-touch-icon",
+                    url: "/favicons/apple-touch-icon.png",
+                    type: "image/png",
+                    sizes: "180x180",
+                },
+                {
+                    rel: "apple-touch-startup-image",
                     url: "/favicons/apple-touch-icon.png",
                     type: "image/png",
                     sizes: "180x180",

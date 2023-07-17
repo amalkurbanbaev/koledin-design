@@ -48,7 +48,7 @@ const Window = ({ children }: { children: ReactNode }) => {
                 </div>
             </div>
         </div>
-    ) : undefined;
+    ) : null;
 };
 
 export default Window;
