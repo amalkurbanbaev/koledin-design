@@ -26,7 +26,7 @@ const Header = (props: Partial<ILayoutHeader>) => {
     }, []);
 
     return (
-        <header className="container-main my-10 flex w-full justify-between md:mb-[90px] md:mt-[113px] landscape:my-10">
+        <header className="container-main my-10 flex w-full justify-between lg:py-10 landscape:my-10">
             <div className="flex-1" />
             <Link href="/" className="flex flex-1 justify-center">
                 <div className="relative">

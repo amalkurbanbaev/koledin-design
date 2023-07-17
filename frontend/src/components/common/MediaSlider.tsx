@@ -38,7 +38,7 @@ const Arrow = (props: {
                 alt="left"
                 width={55}
                 height={55}
-                className="h-[55px] w-[55px]"
+                className="h-[55px] w-[55px] invert dark:filter-none"
             />
         </button>
     ) : (
@@ -57,7 +57,7 @@ const Arrow = (props: {
                 alt="left"
                 width={55}
                 height={55}
-                className="h-[55px] w-[55px]"
+                className="h-[55px] w-[55px] invert dark:filter-none"
             />
         </button>
     );

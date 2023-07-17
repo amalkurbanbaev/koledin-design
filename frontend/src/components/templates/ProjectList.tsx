@@ -11,30 +11,28 @@ type Props = { projects: IProject[] };
 const ProjectList = (props: Props) => {
     const { projects } = props;
     return (
-        <div className="grid grid-cols-1 place-items-center gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-x-6 gap-y-5 max-sm:place-content-center max-sm:place-items-center sm:grid-cols-2 lg:grid-cols-3 lg:gap-y-10">
             {projects?.map((el) => (
                 <Link
                     key={el.id}
                     href={`/project/${el.attributes.slug}` || ""}
-                    className="flex h-[229px] max-w-sm flex-col items-center object-cover"
+                    className="flex max-w-sm flex-col"
                 >
-                    <div className="relative">
-                        <div className="absolute inset-0 w-full bg-black/50 backdrop-grayscale transition-opacity duration-300 dark:opacity-0" />
-                        <Image
-                            src={
-                                getStrapiMedia(
-                                    el.attributes.cover?.data?.attributes.url,
-                                ) || ""
-                            }
-                            alt={
-                                el.attributes.cover?.data?.attributes
-                                    .alternativeText || ""
-                            }
-                            width={377}
-                            height={229}
-                            className="h-auto w-[377px] object-contain"
-                        />
-                    </div>
+                    <Image
+                        src={
+                            getStrapiMedia(
+                                el.attributes.cover?.data?.attributes.url,
+                            ) || ""
+                        }
+                        alt={
+                            el.attributes.cover?.data?.attributes
+                                .alternativeText || ""
+                        }
+                        width={377}
+                        height={229}
+                        className="relative h-auto w-[377px] object-contain grayscale transition-all duration-1000 dark:filter-none"
+                    />
+
                     <div className="mt-3 flex w-full justify-between gap-x-4">
                         <h3>{el.attributes.title}</h3>
                         <span>#{el.id}</span>
