@@ -22,6 +22,7 @@ const nextConfig = {
             },
         ],
         domains: ["admin.koledin.com"],
+        unoptimized: true,
     },
     output: "standalone",
 };
