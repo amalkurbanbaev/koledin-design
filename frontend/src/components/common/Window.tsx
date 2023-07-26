@@ -1,9 +1,10 @@
 "use client";
 
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useOnClickOutside } from "usehooks-ts";
 
 import CloseIcon from "../../../public/sub-logo.svg";
 
@@ -15,13 +16,13 @@ const Window = ({ children }: { children: ReactNode }) => {
         setIsOpen(true);
     }, []);
 
-    const handleClose = () => {
+    const handleClose = useCallback(() => {
         const timeOut = setTimeout(() => {
             router.back();
         }, 200);
         setIsOpen(false);
         return () => clearTimeout(timeOut);
-    };
+    }, [router]);
 
     useEffect(() => {
         if (isOpen) {
@@ -34,7 +35,7 @@ const Window = ({ children }: { children: ReactNode }) => {
     useEffect(() => {
         const handleEsc = (event: KeyboardEvent) => {
             if (event.key === "Escape") {
-                setIsOpen(false);
+                handleClose();
             }
         };
         window.addEventListener("keydown", handleEsc);
@@ -42,12 +43,19 @@ const Window = ({ children }: { children: ReactNode }) => {
         return () => {
             window.removeEventListener("keydown", handleEsc);
         };
-    }, []);
+    }, [handleClose]);
+
+    const contentRef = useRef(null);
+
+    useOnClickOutside(contentRef, () => handleClose());
 
     return isOpen ? (
         <div className="scrollbar-themed fixed inset-0 overflow-y-auto bg-white/80 backdrop-blur-[5px] dark:bg-black/90">
             <div className="flex min-h-full items-center justify-center p-4 text-center">
-                <div className="relative w-full max-w-6xl rounded-2xl bg-transparent pb-20 pt-5 text-left align-middle transition-all dark:shadow-xl landscape:pt-4">
+                <div
+                    ref={contentRef}
+                    className="relative w-full max-w-6xl rounded-2xl bg-transparent pb-20 pt-5 text-left align-middle transition-all dark:shadow-xl landscape:pt-4"
+                >
                     <Image
                         alt="Close project"
                         src={CloseIcon}

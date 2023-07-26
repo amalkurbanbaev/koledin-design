@@ -14,9 +14,7 @@ const Project = (project: IProject["attributes"]) => {
         <ReactMarkdown className="rich-text" remarkPlugins={[remarkGfm]}>
             {description}
         </ReactMarkdown>
-    ) : (
-        "No content"
-    );
+    ) : null;
 
     return (
         <div className="max-w-6xl">
