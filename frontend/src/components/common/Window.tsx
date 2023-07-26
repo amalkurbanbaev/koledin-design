@@ -31,6 +31,19 @@ const Window = ({ children }: { children: ReactNode }) => {
         }
     }, [isOpen]);
 
+    useEffect(() => {
+        const handleEsc = (event: KeyboardEvent) => {
+            if (event.key === "Escape") {
+                setIsOpen(false);
+            }
+        };
+        window.addEventListener("keydown", handleEsc);
+
+        return () => {
+            window.removeEventListener("keydown", handleEsc);
+        };
+    }, []);
+
     return isOpen ? (
         <div className="scrollbar-themed fixed inset-0 overflow-y-auto bg-white/80 backdrop-blur-[5px] dark:bg-black/90">
             <div className="flex min-h-full items-center justify-center p-4 text-center">
